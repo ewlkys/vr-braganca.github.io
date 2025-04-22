@@ -381,9 +381,10 @@
       
       <a-sky id="skybox" src="#point1"></a-sky>
       
-      <a-entity id="cam" camera position="0 1.6 0"
-          look-controls="touchEnabled: true; magicWindowTrackingEnabled: true"
-          wasd-controls="acceleration: 20">
+     <a-entity id="cam" camera position="0 1.6 0"
+  look-controls="magicWindowTrackingEnabled: false; touchEnabled: true; mouseEnabled: false"
+  wasd-controls="enabled: false">
+</a-entity>
 
         <a-entity cursor="fuse:true;fuseTimeout:2000"
                   geometry="primitive:ring;radiusInner:0.01;radiusOuter:0.02"
