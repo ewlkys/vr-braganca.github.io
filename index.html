@@ -51,7 +51,20 @@
         }
       });
     </script>
-  </head>
+  
+<script>
+  AFRAME.registerComponent('limit-look', {
+    tick: function () {
+      const pitchObj = this.el.components['look-controls'].pitchObject.rotation;
+      const yawObj = this.el.components['look-controls'].yawObject.rotation;
+      const minPitch = THREE.Math.degToRad(-30);
+      const maxPitch = THREE.Math.degToRad(30);
+      pitchObj.x = Math.max(minPitch, Math.min(maxPitch, pitchObj.x));
+    }
+  });
+</script>
+
+</head>
   <body>
     <a-scene>
       <a-assets>
@@ -381,17 +394,19 @@
       
       <a-sky id="skybox" src="#point1"></a-sky>
       
-     <a-entity id="cam" camera position="0 1.6 0"
-  look-controls="magicWindowTrackingEnabled: false; touchEnabled: true; mouseEnabled: false"
-  wasd-controls="enabled: false">
+      
+<a-entity id="cam" camera position="0 1.6 0"
+          look-controls="magicWindowTrackingEnabled: true; touchEnabled: true"
+          wasd-controls="enabled: false"
+          limit-look>
+  <a-entity cursor="fuse:true;fuseTimeout:2000"
+            geometry="primitive:ring;radiusInner:0.01;radiusOuter:0.02"
+            position="0 0 -1.8"
+            material="shader:flat;color:#000000"
+            animation__mouseenter="property:scale;to:3 3 3;startEvents:mouseenter;endEvents:mouseleave;dir:reverse;dur:2000;loop:1">
+  </a-entity>
 </a-entity>
 
-        <a-entity cursor="fuse:true;fuseTimeout:2000"
-                  geometry="primitive:ring;radiusInner:0.01;radiusOuter:0.02"
-                  position="0 0 -1.8"
-                  material="shader:flat;color:#00000"
-                  animation__mouseenter="property:scale;to:3 3 3;startEvents:mouseenter;endEvents:mouseleave;dir:reverse;dur:2000;loop:1">
-        </a-entity>
       </a-entity>
       
     </a-scene>
